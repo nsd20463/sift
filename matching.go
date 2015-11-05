@@ -132,6 +132,10 @@ func processReader(reader io.Reader, matchRegexes []*regexp.Regexp, data []byte,
 				bufferOffset = 0
 			} else {
 				if lastInputBlockSize == InputBlockSize {
+					if options.BinarySkip {
+						// silently consider this a binary file and given up on it without an error
+						return nil
+					}
 					return errLineTooLong
 				}
 				bufferOffset = validMatchRange
