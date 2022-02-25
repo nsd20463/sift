@@ -30,7 +30,7 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 )
 
 type Options struct {
@@ -796,7 +796,7 @@ func (o *Options) performAutoDetections(patterns []string, targets []string) {
 	if o.Color == "auto" {
 		// auto activate colored output only if STDOUT is a terminal
 		if o.Output == "" {
-			if runtime.GOOS != "windows" && terminal.IsTerminal(int(os.Stdout.Fd())) {
+			if runtime.GOOS != "windows" && term.IsTerminal(int(os.Stdout.Fd())) {
 				o.Color = "on"
 			} else {
 				o.Color = "off"
@@ -807,7 +807,7 @@ func (o *Options) performAutoDetections(patterns []string, targets []string) {
 	}
 
 	if o.GroupByFile {
-		if !terminal.IsTerminal(int(os.Stdout.Fd())) {
+		if !term.IsTerminal(int(os.Stdout.Fd())) {
 			o.GroupByFile = false
 		}
 	}

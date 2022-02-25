@@ -34,7 +34,7 @@ import (
 	"github.com/svent/go-flags"
 	"github.com/svent/go-nbreader"
 	"github.com/svent/sift/gitignore"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 )
 
 const (
@@ -640,7 +640,7 @@ func main() {
 
 	if len(args) == 0 {
 		// check whether there is input on STDIN
-		if !terminal.IsTerminal(int(os.Stdin.Fd())) {
+		if !term.IsTerminal(int(os.Stdin.Fd())) {
 			targets = []string{"-"}
 		} else {
 			targets = []string{"."}
